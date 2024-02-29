@@ -1,6 +1,6 @@
 module otlp-mosquitto
 
-go 1.21.5
+go 1.22
 
 require (
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
