@@ -15,6 +15,7 @@ import (
 func main() {
 	viper.AddConfigPath(".")
 	viper.SetConfigName("config")
+	viper.SetConfigType("toml")
 	viper.AutomaticEnv()
 	err := viper.ReadInConfig()
 	if err != nil {
@@ -94,4 +95,9 @@ func onConnect(client mqtt.Client) {
 		return
 	}
 	log.Printf("Subscribed to $SYS/broker/#")
+
+	err = initMsgQueue()
+	if err != nil {
+		log.Printf("Could not initialize msg queue: %s", err)
+	}
 }
