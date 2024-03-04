@@ -18,13 +18,15 @@ var msgQueueTicker *time.Ticker
 
 func initMsgQueue() error {
 	var err error
-	useMsgQueue := viper.GetBool("msgqueue")
+	useMsgQueue := viper.GetBool("msgqueue.enabled")
 	if useMsgQueue {
 		msgQueueCounter, err = meter.Int64UpDownCounter("ipcs/msg/qnum")
 		if err != nil {
 			return fmt.Errorf("failed to create msg queue counter: %w", err)
 		}
-		msgQueueTicker = time.NewTicker(1 * time.Minute)
+		viper.SetDefault("msgqueue.update_sec", 30)
+		updateSec := viper.GetInt("msgqueue.update_sec")
+		msgQueueTicker = time.NewTicker(time.Duration(updateSec) * time.Second)
 		go msgQueue()
 	}
 	return nil

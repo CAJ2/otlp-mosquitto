@@ -1,5 +1,3 @@
-msgqueue = false
-
 [mqtt]
 host = "localhost"
 port = 1883
@@ -8,3 +6,7 @@ password = "test"
 
 [otlp]
 endpoint = "localhost:4317"
+
+[msgqueue]
+enabled = false
+update_sec = 30
